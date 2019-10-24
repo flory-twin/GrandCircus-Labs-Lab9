@@ -9,6 +9,65 @@ import java.util.Scanner;
  */
 public class Validator
 {
+   /**
+    * Prompt for a boolean, with several different input values accepted.
+    * @param prompt
+    * @return
+    */
+   public static boolean promptForBoolean(Scanner scnr, String prompt)
+   {
+      boolean returnVal = false;
+      
+      System.out.println(prompt);
+      
+      String trueFalseString = scnr.nextLine();
+      switch (trueFalseString.toLowerCase())
+      {
+      case "true":
+      case "t":
+      case "1":
+         returnVal |= true;
+         break;
+      case "false":
+      case "f":
+      case "0":
+         returnVal = false;
+         break;
+      case "get me out of here!":
+         returnVal |= false;
+         break;
+      default:
+         System.out.println("That's not a boolean value.");
+         System.out.println("Acceptible values are \"true\", \"false\", \"t\", \"f\", \"1\", \"0\" and \"GET ME OUT OF HERE!.");
+         System.out.println("Please try again.");
+         returnVal |= promptForBoolean(scnr, prompt);   
+      }
+      
+      return returnVal;
+   }
+   
+   /**
+    * Use the specified labels to choose a boolean.
+    */
+   public static boolean getBooleanYN(Scanner scnr, String prompt, String yesLabel, String noLabel)
+   {
+      boolean returnVal = false;
+      
+      System.out.println(prompt);
+      
+      String trueFalseString = scnr.nextLine();
+      if (trueFalseString.equalsIgnoreCase(yesLabel))
+      {
+         returnVal = true;
+      } else if (trueFalseString.equalsIgnoreCase(noLabel)) {
+         returnVal = false;
+      } else {
+         System.out.println("That's not a " + yesLabel + "/" + noLabel + " value. Please try again.");
+         returnVal = getBooleanYN(scnr, prompt, yesLabel, noLabel);
+      }
+      
+      return returnVal;
+   }
    
    /**
     * Get any valid integer.
